@@ -20,8 +20,12 @@ namespace WPFContactsApp {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+
+        List<Contact> contacts;
+
         public MainWindow() {
             InitializeComponent();
+            contacts = new List<Contact>();
             ReadDatabase();
         }
 
@@ -44,8 +48,30 @@ namespace WPFContactsApp {
         private void ReadDatabase() {
             using (var connection = new SQLiteConnection(App.databasePath)) {
                 connection.CreateTable<Contact>();
-                var contacts = connection.Table<Contact>().ToList();
+                contacts = connection.Table<Contact>().ToList();
             }
+            UpdateListView(contacts);
+        }
+
+        /// <summary>
+        /// Update the list view in the main window
+        /// </summary>
+        /// <param name="contacts">list of contacts to add to listview</param>
+        private void UpdateListView(List<Contact> contacts) {
+            if (contacts != null) {
+                contactsListView.ItemsSource = contacts;  
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            TextBox searchTextBox = sender as TextBox;
+
+            ListFilter(searchTextBox);
+        }
+
+        private void ListFilter(TextBox searchTextBox) {
+            var filteredList = contacts.Where(c => c.Name.ToLower().Contains(searchTextBox.Text.ToLower())).ToList();
+            contactsListView.ItemsSource = filteredList;
         }
     }
 }
