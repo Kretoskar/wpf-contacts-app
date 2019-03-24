@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFContactsApp.Classes;
 
 namespace WPFContactsApp {
     /// <summary>
@@ -20,10 +22,12 @@ namespace WPFContactsApp {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            ReadDatabase();
         }
 
         private void NewContactButton_Click(object sender, RoutedEventArgs e) {
             ShowNewContactWindow();
+            ReadDatabase();
         }
 
         /// <summary>
@@ -32,6 +36,16 @@ namespace WPFContactsApp {
         private void ShowNewContactWindow() {
             NewContactWindow newContactWindow = new NewContactWindow();
             newContactWindow.ShowDialog();
+        }
+
+        /// <summary>
+        /// Read from the database
+        /// </summary>
+        private void ReadDatabase() {
+            using (var connection = new SQLiteConnection(App.databasePath)) {
+                connection.CreateTable<Contact>();
+                var contacts = connection.Table<Contact>().ToList();
+            }
         }
     }
 }
