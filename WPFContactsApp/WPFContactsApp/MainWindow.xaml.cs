@@ -73,5 +73,14 @@ namespace WPFContactsApp {
             var filteredList = contacts.Where(c => c.Name.ToLower().Contains(searchTextBox.Text.ToLower())).ToList();
             contactsListView.ItemsSource = filteredList;
         }
+
+        private void ContactsListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            Contact selectedContact = (Contact)contactsListView.SelectedItem;
+            
+            if(selectedContact != null) {
+                DetailsWindow detailsWindow = new DetailsWindow(selectedContact);
+                detailsWindow.ShowDialog();
+            }
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace WPFContactsApp {
 
         private void SaveButton_Click(object sender, RoutedEventArgs e) {
             AddNewContact();
-            CloseWindow();
+            Close();
         }
 
         /// <summary>
@@ -39,19 +39,12 @@ namespace WPFContactsApp {
                 Email = emailTextBox.Text,
                 Phone = phoneNumberTextBox.Text
             };
-            //Add the contact to database and close the database
+            //Add the contact to database and close the database afterwards
             using (SQLiteConnection connection = new SQLiteConnection(App.databasePath)) {
                 //Add a contact to the database
                 connection.CreateTable<Contact>();
                 connection.Insert(contact);
             }
-        }
-
-        /// <summary>
-        /// Closes this window
-        /// </summary>
-        private void CloseWindow() {
-            this.Close();
         }
     }
 }
