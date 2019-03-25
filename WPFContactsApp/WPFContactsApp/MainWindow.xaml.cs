@@ -48,7 +48,7 @@ namespace WPFContactsApp {
         private void ReadDatabase() {
             using (var connection = new SQLiteConnection(App.databasePath)) {
                 connection.CreateTable<Contact>();
-                contacts = connection.Table<Contact>().ToList();
+                contacts = (connection.Table<Contact>().ToList()).OrderBy(c => c.Name).ToList();
             }
             UpdateListView(contacts);
         }
