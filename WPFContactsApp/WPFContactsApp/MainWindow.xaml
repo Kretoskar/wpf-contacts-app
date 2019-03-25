@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="380" Width="525">
     <StackPanel Margin="10">
+
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,5,0,5">
+            <TextBlock Text="Search:"
+                   FontWeight="Bold"
+                   Margin="5,0,0,0"/>
+            <TextBox Margin="10,0,0,0"
+                    TextChanged="TextBox_TextChanged"
+                    Width="200"/>
+        </StackPanel>
+
         <ListView x:Name="contactsListView"
                   SelectionChanged="ContactsListView_SelectionChanged"
                   Height="270"
@@ -27,10 +38,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+
         <Button x:Name="newContactButton"
                 Content="New contact"
-                Click="NewContactButton_Click"/>
-        <TextBox Margin="0,5,0,5"
-                 TextChanged="TextBox_TextChanged"/>
+                Click="NewContactButton_Click"
+                Margin="0,0,0,5"/>
+
     </StackPanel>
 </Window>
