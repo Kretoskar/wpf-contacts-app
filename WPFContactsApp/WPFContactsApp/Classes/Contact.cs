@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace WPFContactsApp.Classes {
     public class Contact {
+
+        public Contact() {
+            Name = "Name LastName";
+            Email = "example@domain.com";
+            Phone = "123456789";
+        }
+
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
