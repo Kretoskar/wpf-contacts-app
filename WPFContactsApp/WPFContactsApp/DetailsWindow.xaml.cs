@@ -42,10 +42,11 @@ namespace WPFContactsApp {
         private void UpdateButton_Click(object sender, RoutedEventArgs e) {
 
             UpdateContact();
-
-            using (SQLiteConnection connection = new SQLiteConnection(App.databasePath)) {
-                connection.CreateTable<Contact>();
-                connection.Update(contact);
+            if (contact.Name != "" && contact.Email != "" && contact.Phone != "") {
+                using (SQLiteConnection connection = new SQLiteConnection(App.databasePath)) {
+                    connection.CreateTable<Contact>();
+                    connection.Update(contact);
+                }
             }
             Close();
         }
@@ -57,7 +58,6 @@ namespace WPFContactsApp {
             contact.Name = nameTextBox.Text;
             contact.Phone = phoneNumberTextBox.Text;
             contact.Email = emailTextBox.Text;
-
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e) {

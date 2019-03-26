@@ -39,6 +39,7 @@ namespace WPFContactsApp {
                 Email = emailTextBox.Text,
                 Phone = phoneNumberTextBox.Text
             };
+            if (contact.Name == "" && contact.Email == "" && contact.Phone == "") return;
             //Add the contact to database and close the database afterwards
             using (SQLiteConnection connection = new SQLiteConnection(App.databasePath)) {
                 //Add a contact to the database
